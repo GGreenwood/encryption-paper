@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage[nopar]{lipsum} % for dummy text
+\usepackage[american]{babel}
+\usepackage[babel]{csquotes}
+\usepackage[notes,natbib,authordate,notetype=endonly,isbn=false,backend=biber]{biblatex-chicago}  
+\usepackage{endnotes}
+\addbibresource{\jobname.bib}
+
+\begin{document}
+\section{Introduction}
+
+With an emphasis on maintaining user privacy while allowing for exceptional access by law enforcement, what are the current and suggested public policies regarding encrypted user information?  This redefinition would allow me to focus on the following key points:
+\endnote{Test footnote!}
+
+\lipsum[1]\textcite{Saussure1995}
+
+\lipsum[2]\textcite{Labov1972}
+
+
+\theendnotes
+\printbibliography
+\end{document}
