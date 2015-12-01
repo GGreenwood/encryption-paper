@@ -1,3 +1,6 @@
+## Hidden files
+.*
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -145,3 +148,6 @@ pythontex-files-*/
 # endfloat
 *.ttt
 *.fff
+
+# endnotes
+*.ent
