@@ -8,10 +8,13 @@
     isbn=false,
     backend=biber
 ]{biblatex-chicago}  
+\usepackage{epigraph}
+\usepackage{quotetitle}
 \usepackage{endnotes,ellipsis}
 
 \usepackage{setspace}
-\doublespacing
+%\doublespacing
+\spacing{2.1}
 
 \addbibresource{\jobname.bib}
 
@@ -20,11 +23,19 @@
 \date{Fall 2015}
 \course{Dr Dow, ECS 3361}
 \institution{The University of Texas at Dallas}
+\titlequote{Without the ability to keep secrets, individuals lose the capacity to
+distinguish themselves from others, to maintain independent lives,
+to be complete and autonomous persons.... This does not mean
+that a person actually has to keep secrets to be autonomous, just
+that she must possess the ability to do so. The ability to keep
+secrets implies the ability to disclose secrets selectively, and so the
+capacity for selective disclosure at one's own discretion is important
+to individual autonomy as well.}{Kim L. Scheppele\endnote{Kim L. Scheppele, Legal Secrets 302 (1988) (reference omitted).}}
 
 \begin{document}
 \maketitle
 
-\section{Introduction}
+%\section{Introduction}
 
 In order to protect the freedom of speech and privacy of information, strong encryption can be used to hide information from those without the proper credentials.
 However, well-encrypted data is also impossible to use in legal cases, public defense, or surveillance and allows criminals to hide their digital actions.
@@ -35,19 +46,37 @@ This debate sparked in the '90s, when it was decided that encryption should be a
 %Called the U.S. Data Encryption Standard (DES), it aimed to increase the effectiveness of encryption by instituting a standard for private companies to follow.
 %This standard quickly went international despite export controls on U.S. companies, which 
 
-\section{History}
-Publicly available encryption entered the spotlight in the early 1970s, with the U.S. Data Encryption Standard(DES).\endnote{See \textcite{metaphor1995} \S I.B.1}
+%\section{History}
+% DES
+Publicly available encryption entered the spotlight in the early 1970s, with the U.S. Data Encryption Standard(DES).\endnote{See \textcite{metaphor1995} \S I.B.1.}
 Built as a collaboration between the National Bureau of Standards, now the National Institute of Standards and Technology (NIST), and IBM, it was designed to replace the conflicting standards of the time.
-The NSA was closely involved in its development, certifying it as "free of any statistical or mathematical weaknesses", leading to concerns about its security and the possibility of a back door.
+The NSA was closely involved in its development, leading to concerns about its security and the possibility of a back door despite being certified as "free of any statistical or mathematical weaknesses".
 
 DES was wildly successful and even became internationally used despite extensive export restrictions which treated it as a weapon, restricting U.S. based companies from selling DES-equipped products to foreigners.
-Still, books containing the DES specifications could be printed and distributed freely and the standard quickly went global.
+Still, books containing the DES specifications could be printed and distributed freely and the standard quickly went global.\endnote{See \textcite{metaphor1995} \S I.C.1.c.i.}
 Soon, it was the most used encryption standard.
 
 DES is a symmetric encryption scheme, meaning that both parties can encrypt and decrypt plaintext with a shared key.
-The key is 56 bits long, a sweet spot that makes computation reasonably fast but can be brute-forced with reasonable investment.
-For example, an investment of \$10 million in 1993 could produce a machine capable of cracking a DES key every twenty-one minutes\endnote{See \textcite{metaphor1995} \S I.B.2} and the Electronic Frontier Foundation spent \$250,000 on a custom machine in 1998 that could crack a key in twenty-two hours.\endnote{See \textcite{eff-des1998}. EFF custom designed and built a machine with 1,856 custom chips, each capable of testing 2.5 million keys a second.}
+The key is 56 bits long, a sweet spot that made computation fast but could be brute-forced with reasonable investment.
+For example, an investment of \$10 million in 1993 could produce a machine capable of cracking a DES key every twenty-one minutes\endnote{See \textcite{metaphor1995} \S I.B.2.}
+  and the Electronic Frontier Foundation spent \$250,000 on a custom machine in 1998 that cracked a key in twenty-two hours.\endnote{See \textcite{eff-des1998} p. 1-14. EFF custom designed and built a machine with 1,856 custom chips, each capable of testing 60 million keys a second. 
+  It can exhaust the entire keyspace in a span of nine days, and will find the correct key in half that, on average.}
+Therefore, it would not be unreasonable for any country or wealthy individual to break DES reliably with enough investment.
 
+% 1990s and key escrow
+In the 1990s, NSA began to push a new standard for encryption that would give them access to encrypted information.
+Called the Escrowed Encryption Standard (EES), it is designed so that users can communicate securely against decryption from everyone but the U.S. government.\endnote{See \textcite{mit1997} and \textcite{metaphor1995} \S I.C}
+EES uses 80 bit keys and a stronger encryption method, making it at least $2^{14}$ times harder to brute force than DES.
+EES is also built on the SKIPJACK algorithm, which was classified on release. Therefore, users of EES would need to rely on government-supplied implementations and escrow keys.
+
+The main use of EES is in the Clipper Chip, a component that could be added to landline phones to enable encrypted communication.\endnote{See \textcite{metaphor1995} \S I.C.2.}
+Each chip has a unique serial number and encryption key duplicated and held by the government. 
+
+\section{Privacy}
+%Government has always had a history of balancing the privacy interests of its citizens with the need for security or surveillance.
+%Often, law enforcement agencies must collect digital evidence from suspects. 
+%The ability of an individual to protect a secret is a form of power against the government, and the government's ability to penetrate that secret is another form of power over its people.
+%These secrets can be kept for good or evil reasons. 
 
 
 \pagebreak

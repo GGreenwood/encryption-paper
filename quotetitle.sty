@@ -1,0 +1,60 @@
+\newcommand{\titlequote}[2]{\def\@titlequote{#1} \def\@titlequoteauthor{#2}}
+\titlequote{}{}
+
+\renewcommand{\maketitle}{%
+    \begin{titlepage}%
+        \newgeometry{margin=1in, ignoreall, noheadfoot}
+        \let\footnotesize\small
+        \let\footnoterule\relax
+        \let\footnote\thanks
+        \normalfont\normalsize\centering\singlespacing
+        \vspace*{-1.2\baselineskip}
+        \vspace*{0.333\paperheight}
+        \vspace*{-1in}
+        \ifthenelse{\equal{\@subtitle}{}}%
+        {%
+            {\bfseries\@title}\par%
+        }%
+        {%
+            {\bfseries\@title :}\par
+            \vspace*{0.833\baselineskip}
+            {\bfseries\@subtitle}\par%
+        }
+        \vspace*{\stretch{2}}
+        \parskip=0.833\baselineskip
+        \@author\par
+        \@course\par
+        \@institution\par
+        \@date\par
+        \vspace*{1in}
+        \@titlequote\par
+        \textit{-- \@titlequoteauthor}\par
+        \parskip=0pt
+        \vspace*{\stretch{1}
+        \@makewordcount}
+    \end{titlepage}%
+
+    \setcounter{footnote}{0}%
+
+    \global\let\thanks\relax
+    \global\let\maketitle\relax
+
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@course\@empty
+    \global\let\@institution\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\@subtitle\@empty
+    \global\let\@wordcount\@empty
+
+    \global\let\title\relax
+    \global\let\subtitle\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\course\relax
+    \global\let\institution\relax
+    \global\let\and\relax
+    \global\let\setwordcount\relax
+
+\restoregeometry}
