@@ -58,21 +58,37 @@ Soon, it was the most used encryption standard.
 
 DES is a symmetric encryption scheme, meaning that both parties can encrypt and decrypt plaintext with a shared key.
 The key is 56 bits long, a sweet spot that made computation fast but could be brute-forced with reasonable investment.
-For example, an investment of \$10 million in 1993 could produce a machine capable of cracking a DES key every twenty-one minutes\endnote{See \textcite{metaphor1995} \S I.B.2.}
+For example, an investment of \$10 million in 1993 could produce a machine capable of cracking a DES key every twenty-one minutes\endnote{See \textcite{metaphor1995} \S I.B.2. and Appendix A.}
   and the Electronic Frontier Foundation spent \$250,000 on a custom machine in 1998 that cracked a key in twenty-two hours.\endnote{See \textcite{eff-des1998} p. 1-14. EFF custom designed and built a machine with 1,856 custom chips, each capable of testing 60 million keys a second. 
-  It can exhaust the entire keyspace in a span of nine days, and will find the correct key in half that, on average.}
+  It can exhaust the entire keyspace(72,057,594,037,927,936 large) in a span of nine days, and will find the correct key in half that on average.}
 Therefore, it would not be unreasonable for any country or wealthy individual to break DES reliably with enough investment.
 
 % 1990s and key escrow
 In the 1990s, NSA began to push a new standard for encryption that would give them access to encrypted information.
-Called the Escrowed Encryption Standard (EES), it is designed so that users can communicate securely against decryption from everyone but the U.S. government.\endnote{See \textcite{mit1997} and \textcite{metaphor1995} \S I.C}
-EES uses 80 bit keys and a stronger encryption method, making it at least $2^{14}$ times harder to brute force than DES.
-EES is also built on the SKIPJACK algorithm, which was classified on release. Therefore, users of EES would need to rely on government-supplied implementations and escrow keys.
+Called the Escrowed Encryption Standard (EES), it is designed so that users can communicate securely against decryption from everyone but the U.S. government.\endnote{See \textcite{metaphor1995} \S I.C. "Key escrow" refers to the recovery of the encryption key by the government.}
+EES uses 80 bit keys and a stronger encryption method, making it at least $2^{14}$ times harder to brute force than DES.\endnote{Each bit added doubles the number of possible keys to choose from and therefore, the amount of time needed to guess the correct key. At the time of writing, 2,048 bit AES keys are considered secure and used by companies like Google}
+It is also built on the SKIPJACK algorithm, which was classified on release. Therefore, users of EES would need to rely on government-supplied implementations and escrow keys.
 
 The main use of EES is in the Clipper Chip, a component that could be added to landline phones to enable encrypted communication.\endnote{See \textcite{metaphor1995} \S I.C.2.}
-Each chip has a unique serial number and encryption key duplicated and held by the government. 
+Each chip has a unique serial number and encryption key duplicated and held by the government.
+In order to safeguard these keys, each is split into half and given to different "escrow agents" who only release them if a lawful need is demonstrated.
+These agents must protect these keys from theft, unlawful or fraudulent requests, and transmit them safely.\endnote{See \textcite{mit1997} \S 3.2.2}
 
-\section{Privacy}
+To participate in a Clipper-encrypted phone call, users must press a red button to enable the security feature. At this point, two more keys come into play.
+The two phones coordinate a session key unique to that phone call, encrypt it using their preprogrammed chip keys, append their device IDs, encrypt it again using a government master key, and finally broadcast the result over the line.
+Law enforcement agencies who have a record of this call can then use the master key to uncover the IDs of each phone in the conversation.
+Once they obtain the corresponding key from the escrow agents, they can decrypt again to get the underlying session key which opens up the entire message.\endnote{See \textcite{metaphor1995} \S I.C.2.a.}
+
+All of this complexity creates a secure environment only if several assumptions hold true.
+The governmental master key may not fall into the wrong hands. Although the key will only exist in hardware circulated among law enforcement agencies, it may still be stolen or used nefariously.\endnote{See \textcite{metaphor1995} note 194.}
+The escrow agents must only hand over keys in the case of lawful requests, and keep them safe otherwise.\endnote{See \textcite{mit1997} \S 3.2.1, \S 3.2.3. and \textcite{metaphor1995} \S I.C.2.b.}
+The phones communicating must implement a secure method for choosing a session key. This step isn't handled by the Clipper chip and must be implemented by each manufacturer.\endnote{See \textcite{metaphor1995} \S I.C.2.a and note 189.}
+Each implementation of these encryption methods must not have mistakes. Like the recent Heartbleed vulnerability, a small error may lead to the exploitation of the entire system.
+If any of these goes wrong, the integrity of the entire system and the promised security is lost.
+
+
+
+%\section{Privacy}
 %Government has always had a history of balancing the privacy interests of its citizens with the need for security or surveillance.
 %Often, law enforcement agencies must collect digital evidence from suspects. 
 %The ability of an individual to protect a secret is a form of power against the government, and the government's ability to penetrate that secret is another form of power over its people.
