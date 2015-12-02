@@ -120,6 +120,32 @@ Both of these modern practices are reduced in effectiveness by the need to provi
 Additionally, the nature of today's large app economy would make it nearly impossible to perfectly implement exceptional access.
 If one app implemented key escrow, its users who are concerned about the security implications of a more complicated system could simple move to another system.
 
+However, that just covers the technical aspects to the current debate on exceptional access methods. There are still many legal and ethical facets to explore. Arguments have been made against 
+
+% "Going bright"
+In response to the Congressional hearing that revitalized the debate, a new proposal suggested a method of wiretapping without needing to weaken the secure infrastructure.\endnote{\textcite{going-bright}}
+This approach involves leaving the underlying software as it is and instead exploits hidden bugs.
+These so-called \textit{0-day vulnerabilities} (named so because bugs are discovered on day 0 and worked on later) are often subtle but can have great effects on the security of the system.
+For example, the Heartbleed bug allowed for private keys used in certificates to be cracked with minimal effort.
+From these keys, an attacker can access all of the data in the website's databases, including user communications.\endnote{See \textcite{heartbleed}}
+
+A recent study found that these 0-day vulnerabilities last an average of 312 days between first use and their public disclosure.\endnote{See \textcite{going-bright} p.69}
+During this time, the closed knowledge of the bug is extremely valuable since it can be used for surveillance and evidence gathering.
+As a result, these bugs have become commodoties that are being sold both in commercial and underground markets.
+
+The FBI can spend resources either discovering 0-days on their own or purchasing them on the market.
+Once obtained, they can develop an exploit tool that compromises a vulnerable target using the bug.
+These tools would be extensively tested to ensure that they don't deal any collateral damage, then will be distributed to law enforcement and used where legally appropriate.
+
+This practice would open up its own class of questions if it were to be publicly adopted.
+Should the government exploit these bugs silently, or report them and improve the software base?
+Should the government discover these bugs with their own research teams, or purchase them commercially?
+If they are purchased commercially, where does the government draw the line when buying from questionable sources?
+
+The last question at least has an analog in current public policy.
+The use of paid informers to uncover a criminal organization similarly serves to support one who's activities are against good public policy.
+Also, the law enforcement officers performing the exploit will still be held to wiretapping laws, such as minimization.\endnote{See \textcite{going-bright} p.70. Minimization ensures that the wiretapping only captures the subject and only during their criminal activities.}
+
 %\section{Privacy}
 %Government has always had a history of balancing the privacy interests of its citizens with the need for security or surveillance.
 %Often, law enforcement agencies must collect digital evidence from suspects. 
