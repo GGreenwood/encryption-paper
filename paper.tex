@@ -42,11 +42,7 @@ However, well-encrypted data is also impossible to use in legal cases, public de
 To combat these activities, government agencies like NSA have been attempting to either limit the effectiveness of encryption methods or require methods for exceptional access to data.
 This debate sparked in the '90s, when it was decided that encryption should be allowed with certain caveats, but it has resurfaced lately considering the amount of personal encrypted information that private companies hold.
 
-%The very first standard encryption method was developed in the early 1970s by the National Bureau of Standards, now the National Institute of Standards and Technology (NIST).
-%Called the U.S. Data Encryption Standard (DES), it aimed to increase the effectiveness of encryption by instituting a standard for private companies to follow.
-%This standard quickly went international despite export controls on U.S. companies, which 
-
-%\section{History}
+%\section{Technical History}
 % DES
 Publicly available encryption entered the spotlight in the early 1970s, with the U.S. Data Encryption Standard(DES).\endnote{See \textcite{metaphor1995} \S I.B.1.}
 Built as a collaboration between the National Bureau of Standards, now the National Institute of Standards and Technology (NIST), and IBM, it was designed to replace the conflicting standards of the time.
@@ -59,20 +55,20 @@ Soon, it was the most used encryption standard.
 DES is a symmetric encryption scheme, meaning that both parties can encrypt and decrypt plaintext with a shared key.
 The key is 56 bits long, a sweet spot that made computation fast but could be brute-forced with reasonable investment.
 For example, an investment of \$10 million in 1993 could produce a machine capable of cracking a DES key every twenty-one minutes\endnote{See \textcite{metaphor1995} \S I.B.2. and Appendix A.}
-  and the Electronic Frontier Foundation spent \$250,000 on a custom machine in 1998 that cracked a key in twenty-two hours.\endnote{See \textcite{eff-des1998} p. 1-14. EFF custom designed and built a machine with 1,856 custom chips, each capable of testing 60 million keys a second. 
+  and the Electronic Frontier Foundation spent \$250,000 on a custom machine in 1998 that cracked a key in twenty-two hours.\endnote{See \textcite{eff-des1998} p.1-14. EFF custom designed and built a machine with 1,856 custom chips, each capable of testing 60 million keys a second. 
   It can exhaust the entire keyspace(72,057,594,037,927,936 large) in a span of nine days, and will find the correct key in half that on average.}
 Therefore, it would not be unreasonable for any country or wealthy individual to break DES reliably with enough investment.
 
 % 1990s and key escrow
 In the 1990s, NSA began to push a new standard for encryption that would give them access to encrypted information.
 Called the Escrowed Encryption Standard (EES), it is designed so that users can communicate securely against decryption from everyone but the U.S. government.\endnote{See \textcite{metaphor1995} \S I.C. "Key escrow" refers to the recovery of the encryption key by the government.}
-EES uses 80 bit keys and a stronger encryption method, making it at least $2^{14}$ times harder to brute force than DES.\endnote{Each bit added doubles the number of possible keys to choose from and therefore, the amount of time needed to guess the correct key. At the time of writing, 2,048 bit AES keys are considered secure and used by companies like Google}
+EES uses 80 bit keys and a stronger encryption method, making it at least $2^{14}$ times harder to brute force than DES.\endnote{Each bit added doubles the number of possible keys to choose from and therefore, the amount of time needed to guess the correct key. At the time of writing, 2,048 bit AES keys are considered secure and used by companies like Google.}
 It is also built on the SKIPJACK algorithm, which was classified on release. Therefore, users of EES would need to rely on government-supplied implementations and escrow keys.
 
 The main use of EES is in the Clipper Chip, a component that could be added to landline phones to enable encrypted communication.\endnote{See \textcite{metaphor1995} \S I.C.2.}
-Each chip has a unique serial number and encryption key duplicated and held by the government.
+Each chip has a unique serial number and encryption key duplicatedand held by the government.
 In order to safeguard these keys, each is split into half and given to different "escrow agents" who only release them if a lawful need is demonstrated.
-These agents must protect these keys from theft, unlawful or fraudulent requests, and transmit them safely.\endnote{See \textcite{mit1997} \S 3.2.2}
+These agents must protect these keys from theft, unlawful or fraudulent requests, and transmit them safely.\endnote{See \textcite{mit1997} \S 3.2.2.}
 
 To participate in a Clipper-encrypted phone call, users must press a red button to enable the security feature. At this point, two more keys come into play.
 The two phones coordinate a session key unique to that phone call, encrypt it using their preprogrammed chip keys, append their device IDs, encrypt it again using a government master key, and finally broadcast the result over the line.
@@ -82,11 +78,47 @@ Once they obtain the corresponding key from the escrow agents, they can decrypt 
 All of this complexity creates a secure environment only if several assumptions hold true.
 The governmental master key may not fall into the wrong hands. Although the key will only exist in hardware circulated among law enforcement agencies, it may still be stolen or used nefariously.\endnote{See \textcite{metaphor1995} note 194.}
 The escrow agents must only hand over keys in the case of lawful requests, and keep them safe otherwise.\endnote{See \textcite{mit1997} \S 3.2.1, \S 3.2.3. and \textcite{metaphor1995} \S I.C.2.b.}
-The phones communicating must implement a secure method for choosing a session key. This step isn't handled by the Clipper chip and must be implemented by each manufacturer.\endnote{See \textcite{metaphor1995} \S I.C.2.a and note 189.}
-Each implementation of these encryption methods must not have mistakes. Like the recent Heartbleed vulnerability, a small error may lead to the exploitation of the entire system.
+The phones communicating must implement a secure method for choosing a session key. This step isn't handled by the Clipper Chip and must be implemented by each manufacturer.\endnote{See \textcite{metaphor1995} \S I.C.2.a and note 189.}
+Finally, each implementation of these encryption methods must not have mistakes. Like the recent Heartbleed vulnerability, a small error may lead to the exploitation of the entire system.
 If any of these goes wrong, the integrity of the entire system and the promised security is lost.
 
+All of these issues and more were brought up by a group of scholars and cryptoanalysts in 1997\endnote{\textcite{mit1997} concluded that the system would "require significant sacrifices in security and convenience and substantially increased costs to all users of encryption. Furthermore, building the secure infrastructure of the breathtaking scale and complexity that would be required for such a scheme is beyond the experience and current competency of the field, and may well introduce ultimately unacceptable risks and costs."}.
+Their article on the technical hurdles of a key escrow system was instrumental in the public debate and the Clipper Chip was eventually abandoned\endnote{See \textcite{mit2015} p.1}.
 
+% 2015 revisit
+In the meantime, innovation on the Internet has flourished in an environment supported by open encryption standards.
+Systems like Twitter and Facebook would likely not exist if there was a requirement for built in key escrow.
+Even still, law enforcement's fears about "going dark" and being unable to collect important evidence came untrue and in fact, they have "much better and more effective surveillance capabilities now than [they] did then"\endnote{See textcite{mit2015} p.2}.
+
+Today, encryption is at the heart of the Internet.
+Society has become more dependent on these systems which are under constant attack, increasing the importance of encryption since it entered the public sphere forty years ago.
+We have also learned more about how to build strong cryptosystems, although their difficulty is still mainly in the implementation.
+Encryption standards are also no longer under export restrictions and the Advanced Encryption Standard (AES) is now used around the world, much like DES was.\endnote{See \textcite{mit2015} \S 1.3.}
+Otherwise, the encryption environment today is very similar to when the escrow debate came up in the 1990s.
+
+Modern cryptography systems are asymmetric and rely on seperate keys for encryption (public key) and decryption(private key).
+
+The context of the debate has also switched from law enforcement requesting "key escrow services" to "exceptional access methods".
+The key difference is that exceptional access is much more broad and encompasses key escrow.
+Exceptional access is the ability for law enforcement agencies to obtain the plain text for any encrypted message that they can obtain through legal means.
+This would require all implementors of encryption to be able to decrypt user data transparently and at will, which poses two issues with modern communication security practices.\endnote{See \textcite{mit2015} \S 2.1.}
+
+The first issue lies in the practice of \textit{forward secrecy}.
+Similar to the Clipper Chip discussed earlier, each session has its own symmetric session key shared between both parties.
+It is quickly becoming standard standard practive to delete these session keys after each transaction.
+In this model, the system is more safe against attacks because an attacker will only be able to compromise ongoing sessions.
+Otherwise, a single infiltration could lead to the compromise of the entire history of encrypted information.\endnote{See \textcite{mit2015} \S 2.1.}
+
+As a result, the system has no way of reading messages sent in the past, which is directly incompatible with the needs of an exceptional access system.
+
+The second issue is that the current best practice involves using \textit{authenticated encryption} to verify both the identity of the other party and that the message hasn't be tampered with.
+Therefore, this method can provide both authentication and confidentiality.
+A private key is used to generate signatures while the public key can verify the integrity of the message and sender.
+Implementing key escrow in order to read messages would therefore compromise the private key, giving the ability to forge messages and ruining the integrity of the system.\endnote{See \textcite{mit2015} \S 2.1.}
+
+Both of these modern practices are reduced in effectiveness by the need to provide exceptional access.
+Additionally, the nature of today's large app economy would make it nearly impossible to perfectly implement exceptional access.
+If one app implemented key escrow, its users who are concerned about the security implications of a more complicated system could simple move to another system.
 
 %\section{Privacy}
 %Government has always had a history of balancing the privacy interests of its citizens with the need for security or surveillance.
