@@ -18,7 +18,8 @@
 
 \addbibresource{\jobname.bib}
 
-\title{Encryption Paper}
+\title{Going Gray}
+\subtitle{The Privacy Battle Between Law Enforcement and Individuals}
 \author{Garrett Greenwood}
 \date{Fall 2015}
 \course{Dr Dow, ECS 3361}
@@ -36,11 +37,19 @@ to individual autonomy as well.}{Kim L. Scheppele\endnote{Kim L. Scheppele, Lega
 \maketitle
 
 %\section{Introduction}
+Government has always had a history of balancing the privacy interests of its citizens with the need for security or surveillance.
+Often, law enforcement agencies must collect digital evidence from suspects in order to determine their guilt or innocence.
+Recently, encryption has confounded these efforts by allowing anyone with a computer to communicate securely with little effort.
+Law enforcement is worried about "going dark"\endnote{See \textcite{going-dark}.} and losing the ability to use evidence that they have legally obtained.
+However, many of their proposed solutions, although technically possible, introduce a wide array of costs and vulnerabilities.
 
 In order to protect the freedom of speech and privacy of information, strong encryption can be used to hide information from those without the proper credentials.
 However, well-encrypted data is also impossible to use in legal cases, public defense, or surveillance and allows criminals to hide their digital actions.
 To combat these activities, government agencies like NSA have been attempting to either limit the effectiveness of encryption methods or require methods for exceptional access to data.
 This debate sparked in the '90s, when it was decided that encryption should be allowed with certain caveats, but it has resurfaced lately considering the amount of personal encrypted information that private companies hold.
+
+This paper will cover the technical history of U.S. encryption standards since their introduction, focusing on the ways that the government is trying to maintain access to encrypted data.
+Then, it will explore an important recent court case and proposal regarding the security of security of a private key and a new way to legally obtain evidence.
 
 %\section{Technical History}
 % DES
@@ -82,7 +91,8 @@ The phones communicating must implement a secure method for choosing a session k
 Finally, each implementation of these encryption methods must not have mistakes. Like the recent Heartbleed vulnerability, a small error may lead to the exploitation of the entire system.
 If any of these goes wrong, the integrity of the entire system and the promised security is lost.
 
-All of these issues and more were brought up by a group of scholars and cryptoanalysts in 1997\endnote{\textcite{mit1997} concluded that the system would "require significant sacrifices in security and convenience and substantially increased costs to all users of encryption. Furthermore, building the secure infrastructure of the breathtaking scale and complexity that would be required for such a scheme is beyond the experience and current competency of the field, and may well introduce ultimately unacceptable risks and costs."}.
+All of these issues and more were brought up by a group of scholars and cryptoanalysts in 1997\endnote{\textcite{mit1997} concluded that the system would "require significant sacrifices in security and convenience and substantially increased costs to all users of encryption.
+Furthermore, building the secure infrastructure of the breathtaking scale and complexity that would be required for such a scheme is beyond the experience and current competency of the field, and may well introduce ultimately unacceptable risks and costs."}.
 Their article on the technical hurdles of a key escrow system was instrumental in the public debate and the Clipper Chip was eventually abandoned\endnote{See \textcite{mit2015} p.1}.
 
 % 2015 revisit
@@ -96,7 +106,11 @@ We have also learned more about how to build strong cryptosystems, although thei
 Encryption standards are also no longer under export restrictions and the Advanced Encryption Standard (AES) is now used around the world, much like DES was.\endnote{See \textcite{mit2015} \S 1.3.}
 Otherwise, the encryption environment today is very similar to when the escrow debate came up in the 1990s.
 
-Modern cryptography systems are asymmetric and rely on seperate keys for encryption (public key) and decryption(private key).
+Modern cryptography systems are asymmetric and rely on seperate keys for encryption (public key) and decryption (private key).
+This seperation is vital to the security of the Internet.
+It is common for a website to give out their public key, allowing others to send them messages, verify their identity, and protect against forgery.
+Likewise, if a website's private key got leaked, all of their messages could be understood and others could pose as them and forge messages.
+Therefore, it is important for a website to protect its private key.
 
 The context of the debate has also switched from law enforcement requesting "key escrow services" to "exceptional access methods".
 The key difference is that exceptional access is much more broad and encompasses key escrow.
@@ -120,9 +134,39 @@ Both of these modern practices are reduced in effectiveness by the need to provi
 Additionally, the nature of today's large app economy would make it nearly impossible to perfectly implement exceptional access.
 If one app implemented key escrow, its users who are concerned about the security implications of a more complicated system could simple move to another system.
 
-However, that just covers the technical aspects to the current debate on exceptional access methods. There are still many legal and ethical facets to explore. Arguments have been made against 
+However, that just covers the technical aspects to the ongoing debate on exceptional access methods.
+There are still many legal and ethical facets to explore.
+
+% Lavabit case
+In summer 2013, Edward Snowden announced his identity as the former CIA employee who had leaked classified information,
+and released his email as \textit{edsnowden@lavabit.com}.
+Lavabit was a new company built on the idea of providing best-practice encrypted email services(including forward secrecy) and had over 400,000 users at its peak.
+th, and the next day, Lavabit received a court order to provide metadata\endnote{"Metadata refers to information about the message, but not the message itself. It includes login date, times, and IP addresses, as well as email headers. See \textcite{lavabit-opinion} p.12} on an unnamed user, likely Snowden.\endnote{There is no conclusive evidence that Edward Snowden was the target of the search, but "the timing and circumstances suggest" it, according to Kevin Paulson of Wired.}
+
+In response, Lavabit refused to comply because the user had enabled their encryption services and "[they] did not want to defeat their own system."\endnote{See \textcite{lavabit-opinion} p.10}
+Eventually, Lavabit agreed to collect and turn over the requested data.
+However, Levison, the owner of Lavabit, would only do so if he implemented the listener himself and received payment for his development time.
+The government denied this proposal because they wanted real-time data and they would not be able to verify the integrity of the data provided.
+
+The government then received a seizure warrant to obtain "[a]ll information necessary to decrypt communications sent to and from [the target's] Lavabit email account..., including encryption and SSL keys."\endnote{See \textcite{lavabit-opinion} p.13}
+Lavabit later argued that this request for their private key was unreasonable because, if a legal precedent, would threaten the security of the Internet, and that it violated the Fourth amendment.\endnote{See \textcite{lavabit-brief}.}
+
+Modern security measues on the internet are based greatly on the ability of a website to keep its private key secret.
+The loss of a private key would allow an attacker to steal user information, modify their servers, and forge requests from the server.
+Furthermore, companies often enter a contract with Certificate Authorities, whose purpose is to verify the identity of the server by vouching for their public key.
+The loss of a private key for any reason is often grounds for the removal of this voucher, branding the site as insecure and compromised.\endnote{See \textcite{lavabit-brief} p.16-18}
+
+Next, the Fourth amendment protects people from unreasonable searches and seizures.
+Obtaining the private key would not only give the government the ability to view the target's records, but all of Lavabit's 400,000 users as well.
+additionally, search and seizure warrants must "be as limited as possible... [to ensure] that nothing is left to the discretion of the officer executing the warrant"\endnote{See \textcite{lavabit-brief} p.24 and \textit{Coolidge}, 403 U.S. at 467.}
+Because the request is a so-called "general warrant" it would not be allowed.
+
+Lavabit's appeal(which was based on these two principles) was rejected because they were not raised in a lower court.
+The court did not decide conclusively whether the government can compel an email provider to disclose their encryption keys.
+Lavabit conceded and yielded their private key to the government and proceded to shut down since it could no longer securely accomplish its goals.
 
 % "Going bright"
+Still one more issue has come up lately since the topic's refresh. 
 In response to the Congressional hearing that revitalized the debate, a new proposal suggested a method of wiretapping without needing to weaken the secure infrastructure.\endnote{\textcite{going-bright}}
 This approach involves leaving the underlying software as it is and instead exploits hidden bugs.
 These so-called \textit{0-day vulnerabilities} (named so because bugs are discovered on day 0 and worked on later) are often subtle but can have great effects on the security of the system.
@@ -146,16 +190,16 @@ The last question at least has an analog in current public policy.
 The use of paid informers to uncover a criminal organization similarly serves to support one who's activities are against good public policy.
 Also, the law enforcement officers performing the exploit will still be held to wiretapping laws, such as minimization.\endnote{See \textcite{going-bright} p.70. Minimization ensures that the wiretapping only captures the subject and only during their criminal activities.}
 
-%\section{Privacy}
-%Government has always had a history of balancing the privacy interests of its citizens with the need for security or surveillance.
-%Often, law enforcement agencies must collect digital evidence from suspects. 
-%The ability of an individual to protect a secret is a form of power against the government, and the government's ability to penetrate that secret is another form of power over its people.
-%These secrets can be kept for good or evil reasons. 
+The battle between law enforcement agencies seeking ways to decrypt the information they have the legal right to obtain and the progress of the open Internet which is built on strong encryption is ongoing.
+Several key escrow and exceptional access methods have been proposed, but all are too complex and insecure to be successful.
+Therefore, law enforcement must find other ways to decrypt evidence.
 
+Although they have done this already in the form of inelegant legal procedures, the privacy of many other individuals has been compromised.
+I suggest that the government begin exploring the policy issues inherent in exploiting hidden bugs in order to decrypt information.
+This path leads (eventually) to a more secure Internet through the active pursuit of bugs and does not stand in the way of the Internet's progress.
 
 \pagebreak
-
 \theendnotes
-
+\pagebreak
 \printbibliography
 \end{document}
